@@ -460,8 +460,7 @@ export default function AdminPage() {
                     className={inputClass}
                   />
                 </div>
-              ) : null
-              )}
+              ) : null}
 
               {/* Images */}
               <div>
