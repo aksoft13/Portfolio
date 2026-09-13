@@ -26,6 +26,7 @@ export async function POST(request: NextRequest) {
       videoType: body.videoType || null,
       videoFile: body.videoFile || null,
       thumbPosition: body.thumbPosition || "50% 50%",
+      location: body.location || null,
       images: body.images || [],
       order: parseInt(body.order) || 0,
       featured: body.featured || false,

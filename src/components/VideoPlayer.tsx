@@ -15,6 +15,25 @@ export default function VideoPlayer({
   videoType,
   videoFile,
 }: VideoPlayerProps) {
+  // Google Drive: extract file ID and use preview embed
+  if (videoType === "google" && videoUrl) {
+    const match = videoUrl.match(/\/d\/([a-zA-Z0-9_-]+)/);
+    const fileId = match ? match[1] : null;
+    if (!fileId) return null;
+    return (
+      <div className="video-wrapper">
+        <iframe
+          src={`https://drive.google.com/file/d/${fileId}/preview`}
+          width="100%"
+          height="100%"
+          allow="autoplay"
+          allowFullScreen
+          style={{ border: "none" }}
+        />
+      </div>
+    );
+  }
+
   const source =
     videoType === "upload" && videoFile ? videoFile : videoUrl || undefined;
 

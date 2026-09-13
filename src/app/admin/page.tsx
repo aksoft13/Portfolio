@@ -11,6 +11,7 @@ interface Project {
   year: number;
   thumbnail: string | null;
   thumbPosition: string | null;
+  location: string | null;
   videoUrl: string | null;
   videoType: string | null;
   videoFile: string | null;
@@ -25,6 +26,7 @@ const emptyForm = {
   category: "",
   year: new Date().getFullYear().toString(),
   thumbnail: "",
+  location: "",
   videoUrl: "",
   videoType: "youtube",
   videoFile: "",
@@ -186,6 +188,7 @@ export default function AdminPage() {
       category: project.category,
       year: project.year.toString(),
       thumbnail: project.thumbnail || "",
+      location: project.location || "",
       videoUrl: project.videoUrl || "",
       videoType: project.videoType || "youtube",
       videoFile: project.videoFile || "",
@@ -200,6 +203,26 @@ export default function AdminPage() {
     if (!confirm("정말 삭제하시겠습니까?")) return;
     const res = await fetch(`/api/projects/${id}`, { method: "DELETE" });
     if (res.ok) fetchProjects();
+  };
+
+  const handleSwapOrder = async (indexA: number, indexB: number) => {
+    const a = projects[indexA];
+    const b = projects[indexB];
+    if (!a || !b) return;
+
+    await Promise.all([
+      fetch(`/api/projects/${a.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...a, order: b.order }),
+      }),
+      fetch(`/api/projects/${b.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...b, order: a.order }),
+      }),
+    ]);
+    fetchProjects();
   };
 
   const removeImage = (index: number) => {
@@ -309,6 +332,19 @@ export default function AdminPage() {
               </div>
 
               <div>
+                <label className={labelClass}>위치</label>
+                <input
+                  type="text"
+                  value={form.location}
+                  onChange={(e) =>
+                    setForm({ ...form, location: e.target.value })
+                  }
+                  placeholder="e.g. Seoul, Korea"
+                  className={inputClass}
+                />
+              </div>
+
+              <div>
                 <label className={labelClass}>설명</label>
                 <textarea
                   value={form.description}
@@ -366,9 +402,25 @@ export default function AdminPage() {
                 >
                   <option value="youtube">YouTube</option>
                   <option value="vimeo">Vimeo</option>
+                  <option value="google">Google Drive</option>
                   <option value="upload">직접 업로드</option>
                 </select>
               </div>
+
+              {form.videoType === "google" && (
+                <div>
+                  <label className={labelClass}>Google Drive URL</label>
+                  <input
+                    type="text"
+                    value={form.videoUrl}
+                    onChange={(e) =>
+                      setForm({ ...form, videoUrl: e.target.value })
+                    }
+                    placeholder="Google Drive 공유 링크"
+                    className={inputClass}
+                  />
+                </div>
+              )}
 
               {form.videoType === "upload" ? (
                 <div>
@@ -392,7 +444,7 @@ export default function AdminPage() {
                     </label>
                   </div>
                 </div>
-              ) : (
+              ) : form.videoType !== "google" ? (
                 <div>
                   <label className={labelClass}>영상 URL</label>
                   <input
@@ -405,6 +457,7 @@ export default function AdminPage() {
                     className={inputClass}
                   />
                 </div>
+              ) : null
               )}
 
               {/* Images */}
@@ -503,16 +556,40 @@ export default function AdminPage() {
               등록된 프로젝트 ({projects.length})
             </h2>
             <div className="space-y-3">
-              {projects.map((project) => (
+              {projects.map((project, index) => (
                 <div
                   key={project.id}
                   className="flex items-center justify-between p-4 bg-card-bg rounded-lg border border-border"
                 >
-                  <div className="min-w-0">
-                    <p className="font-medium truncate">{project.title}</p>
-                    <p className="text-sm text-muted">
-                      {project.year} · {project.category}
-                    </p>
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="flex flex-col gap-0.5 shrink-0">
+                      <button
+                        onClick={() => handleSwapOrder(index, index - 1)}
+                        disabled={index === 0}
+                        className="p-0.5 text-muted hover:text-foreground disabled:opacity-20 disabled:cursor-not-allowed transition-colors"
+                        title="위로"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                        </svg>
+                      </button>
+                      <button
+                        onClick={() => handleSwapOrder(index, index + 1)}
+                        disabled={index === projects.length - 1}
+                        className="p-0.5 text-muted hover:text-foreground disabled:opacity-20 disabled:cursor-not-allowed transition-colors"
+                        title="아래로"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </button>
+                    </div>
+                    <div className="min-w-0">
+                      <p className="font-medium truncate">{project.title}</p>
+                      <p className="text-sm text-muted">
+                        {project.year} · {project.category}
+                      </p>
+                    </div>
                   </div>
                   <div className="flex gap-2 shrink-0 ml-4">
                     <button

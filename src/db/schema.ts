@@ -25,6 +25,7 @@ export const projects = pgTable("projects", {
   videoUrl: text("video_url"),
   videoType: text("video_type"), // "youtube" | "vimeo" | "upload"
   videoFile: text("video_file"),
+  location: text("location"),
   images: text("images").array().notNull().default([]),
   order: integer("order").notNull().default(0),
   featured: boolean("featured").notNull().default(false),
