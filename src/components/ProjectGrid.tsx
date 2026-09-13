@@ -10,7 +10,7 @@ interface Project {
   year: number;
   thumbnail: string | null;
   videoType: string | null;
-  thumbPosition?: string;
+  thumbPosition?: string | null;
 }
 
 interface ProjectGridProps {

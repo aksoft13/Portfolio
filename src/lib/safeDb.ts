@@ -12,6 +12,7 @@ export async function getProjects() {
           category: projects.category,
           year: projects.year,
           thumbnail: projects.thumbnail,
+          thumbPosition: projects.thumbPosition,
           videoType: projects.videoType,
         })
         .from(projects)
