@@ -5,6 +5,7 @@ import {
   boolean,
   timestamp,
   serial,
+  jsonb,
 } from "drizzle-orm/pg-core";
 
 export const adminUsers = pgTable("admin_users", {
@@ -23,8 +24,9 @@ export const projects = pgTable("projects", {
   thumbnail: text("thumbnail"),
   thumbPosition: text("thumb_position").default("50% 50%"),
   videoUrl: text("video_url"),
-  videoType: text("video_type"), // "youtube" | "vimeo" | "upload"
+  videoType: text("video_type"), // "youtube" | "vimeo" | "upload" | "google"
   videoFile: text("video_file"),
+  videos: jsonb("videos").$type<Array<{ type: string; url: string }>>().default([]),
   location: text("location"),
   images: text("images").array().notNull().default([]),
   order: integer("order").notNull().default(0),

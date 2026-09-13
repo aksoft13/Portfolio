@@ -3,6 +3,11 @@
 import { useState, useEffect, useCallback } from "react";
 import ThumbnailCropper from "@/components/ThumbnailCropper";
 
+interface VideoItem {
+  type: string;
+  url: string;
+}
+
 interface Project {
   id: number;
   title: string;
@@ -15,6 +20,7 @@ interface Project {
   videoUrl: string | null;
   videoType: string | null;
   videoFile: string | null;
+  videos: VideoItem[];
   images: string[];
   order: number;
   featured: boolean;
@@ -30,6 +36,7 @@ const emptyForm = {
   videoUrl: "",
   videoType: "youtube",
   videoFile: "",
+  videos: [] as VideoItem[],
   images: [] as string[],
   order: "0",
   featured: false,
@@ -194,6 +201,7 @@ export default function AdminPage() {
       videoUrl: project.videoUrl || "",
       videoType: project.videoType || "youtube",
       videoFile: project.videoFile || "",
+      videos: project.videos || [],
       images: project.images,
       order: project.order.toString(),
       featured: project.featured,
@@ -411,74 +419,67 @@ export default function AdminPage() {
                 />
               )}
 
-              {/* Video */}
+              {/* Videos */}
               <div>
-                <label className={labelClass}>영상 타입</label>
-                <select
-                  value={form.videoType}
-                  onChange={(e) =>
-                    setForm({ ...form, videoType: e.target.value })
-                  }
-                  className={inputClass}
-                >
-                  <option value="youtube">YouTube</option>
-                  <option value="vimeo">Vimeo</option>
-                  <option value="google">Google Drive</option>
-                  <option value="upload">직접 업로드</option>
-                </select>
-              </div>
-
-              {form.videoType === "google" && (
-                <div>
-                  <label className={labelClass}>Google Drive URL</label>
-                  <input
-                    type="text"
-                    value={form.videoUrl}
-                    onChange={(e) =>
-                      setForm({ ...form, videoUrl: e.target.value })
-                    }
-                    placeholder="Google Drive 공유 링크"
-                    className={inputClass}
-                  />
-                </div>
-              )}
-
-              {form.videoType === "upload" ? (
-                <div>
-                  <label className={labelClass}>영상 파일</label>
-                  <div className="flex gap-3">
-                    <input
-                      type="text"
-                      value={form.videoFile}
-                      readOnly
-                      placeholder="파일을 업로드하세요"
-                      className={inputClass}
-                    />
-                    <label className="shrink-0 px-4 py-2.5 bg-border rounded-lg cursor-pointer hover:bg-foreground/20 transition-colors text-sm">
-                      업로드
+                <label className={labelClass}>영상 ({form.videos.length}개)</label>
+                <div className="space-y-2">
+                  {form.videos.map((video, i) => (
+                    <div key={i} className="flex gap-2 items-center">
+                      <select
+                        value={video.type}
+                        onChange={(e) => {
+                          const updated = [...form.videos];
+                          updated[i] = { ...updated[i], type: e.target.value };
+                          setForm({ ...form, videos: updated });
+                        }}
+                        className="w-32 shrink-0 px-3 py-2.5 bg-card-bg border border-border rounded-lg text-foreground text-sm focus:outline-none focus:border-foreground/50 transition-colors"
+                      >
+                        <option value="youtube">YouTube</option>
+                        <option value="vimeo">Vimeo</option>
+                        <option value="google">Google Drive</option>
+                      </select>
                       <input
-                        type="file"
-                        accept="video/*"
-                        className="hidden"
-                        onChange={(e) => handleUpload(e, "videoFile")}
+                        type="text"
+                        value={video.url}
+                        onChange={(e) => {
+                          const updated = [...form.videos];
+                          updated[i] = { ...updated[i], url: e.target.value };
+                          setForm({ ...form, videos: updated });
+                        }}
+                        placeholder={video.type === "google" ? "Google Drive 공유 링크" : "영상 URL"}
+                        className={inputClass}
                       />
-                    </label>
-                  </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setForm({
+                            ...form,
+                            videos: form.videos.filter((_, j) => j !== i),
+                          });
+                        }}
+                        className="shrink-0 p-2 text-muted hover:text-red-400 transition-colors"
+                        title="삭제"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
+                  ))}
                 </div>
-              ) : form.videoType !== "google" ? (
-                <div>
-                  <label className={labelClass}>영상 URL</label>
-                  <input
-                    type="text"
-                    value={form.videoUrl}
-                    onChange={(e) =>
-                      setForm({ ...form, videoUrl: e.target.value })
-                    }
-                    placeholder="YouTube 또는 Vimeo URL"
-                    className={inputClass}
-                  />
-                </div>
-              ) : null}
+                <button
+                  type="button"
+                  onClick={() =>
+                    setForm({
+                      ...form,
+                      videos: [...form.videos, { type: "youtube", url: "" }],
+                    })
+                  }
+                  className="mt-2 px-4 py-2 text-sm border border-dashed border-border rounded-lg text-muted hover:text-foreground hover:border-foreground/30 transition-colors w-full"
+                >
+                  + 영상 추가
+                </button>
+              </div>
 
               {/* Images */}
               <div>

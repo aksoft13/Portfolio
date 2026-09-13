@@ -28,9 +28,10 @@ export default async function ProjectPage({
       </Link>
 
       {/* Video / Thumbnail */}
-      {project.videoUrl || project.videoFile ? (
+      {(project.videos && project.videos.length > 0) || project.videoUrl || project.videoFile ? (
         <div className="mb-8 rounded-lg overflow-hidden">
           <VideoPlayer
+            videos={project.videos ?? undefined}
             videoUrl={project.videoUrl}
             videoType={project.videoType}
             videoFile={project.videoFile}
