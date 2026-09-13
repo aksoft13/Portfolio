@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Design 14 - Retro VHS</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#e0e0e0;font-family:'Courier New',monospace;position:relative}
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,0.015) 2px,rgba(255,255,255,0.015) 4px);pointer-events:none;z-index:100}
+a{color:inherit;text-decoration:none}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:0 32px;height:56px;display:flex;align-items:center;background:rgba(10,10,10,0.95);border-bottom:2px solid #333}
+nav .logo{font-size:16px;font-weight:700;color:#ff4444;text-shadow:2px 0 #00ffff,-2px 0 #ff00ff}
+nav .links{margin-left:auto;display:flex;gap:24px}
+nav .links a{font-size:12px;text-transform:uppercase;color:#888}
+
+.vhs-hero{height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
+.vhs-hero::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:#ff4444;animation:scanline 4s linear infinite;opacity:0.3}
+@keyframes scanline{0%{top:-3px}100%{top:100%}}
+.rec{position:absolute;top:100px;right:60px;font-size:14px;color:#ff4444;animation:blink 1s step-end infinite}
+.rec::before{content:'';display:inline-block;width:10px;height:10px;background:#ff4444;border-radius:50%;margin-right:8px}
+@keyframes blink{50%{opacity:0}}
+.timestamp{position:absolute;bottom:60px;left:60px;font-size:13px;color:#888}
+.vhs-hero h1{font-size:80px;font-weight:700;text-transform:uppercase;text-shadow:3px 0 #00ffff,-3px 0 #ff00ff;margin-bottom:8px;letter-spacing:4px}
+.vhs-hero p{color:#888;font-size:14px;text-transform:uppercase;letter-spacing:4px}
+.tracking{position:absolute;bottom:40%;left:0;right:0;height:40px;background:repeating-linear-gradient(0deg,transparent 0px,rgba(255,255,255,0.03) 1px,transparent 2px);opacity:0.5}
+
+.projects{padding:80px 32px;max-width:1200px;margin:0 auto}
+.section-label{font-size:12px;color:#ff4444;text-transform:uppercase;letter-spacing:3px;margin-bottom:32px;border-bottom:1px solid #333;padding-bottom:8px}
+.vhs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.vhs-card{background:#111;border:1px solid #333;padding:4px;cursor:pointer;transition:all .2s}
+.vhs-card:hover{border-color:#ff4444;box-shadow:0 0 20px rgba(255,68,68,0.1)}
+.vhs-card .thumb{aspect-ratio:4/3;background:#1a1a1a;display:flex;align-items:center;justify-content:center;color:#555;font-size:12px;position:relative}
+.vhs-card .thumb::after{content:'PLAY >';position:absolute;bottom:8px;right:8px;font-size:10px;color:#ff4444;opacity:0;transition:opacity .2s}
+.vhs-card:hover .thumb::after{opacity:1}
+.vhs-card .meta{padding:12px 8px}
+.vhs-card .meta h3{font-size:14px;margin-bottom:4px;text-transform:uppercase}
+.vhs-card .meta span{font-size:11px;color:#888}
+
+.tape-label{max-width:500px;margin:80px auto;background:#1a1a1a;border:2px solid #333;padding:32px;text-align:center;border-radius:4px}
+.tape-label h2{font-size:20px;text-transform:uppercase;margin-bottom:8px;color:#ff4444}
+.tape-label p{font-size:12px;color:#888;text-transform:uppercase;letter-spacing:2px}
+.tape-label .line{width:60%;height:1px;background:#333;margin:16px auto}
+
+footer{border-top:1px solid #333;padding:32px;text-align:center;color:#555;font-size:11px;text-transform:uppercase;letter-spacing:2px}
+.back{position:fixed;bottom:24px;right:24px;background:#111;border:1px solid #ff4444;padding:8px 16px;font-family:monospace;color:#ff4444;font-size:12px;z-index:99}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back">[BACK]</a>
+
+<nav><div class="logo">SH.LEE</div><div class="links"><a href="#">Work</a><a href="#">CV</a><a href="#">Contact</a></div></nav>
+
+<section class="vhs-hero">
+  <div class="rec">REC</div>
+  <div class="timestamp">2024.09.13 PM 06:30:00</div>
+  <div class="tracking"></div>
+  <h1>VIDEO</h1>
+  <p>Portfolio &middot; Sunghoon Lee</p>
+</section>
+
+<section class="projects">
+  <div class="section-label">// All Projects</div>
+  <div class="vhs-grid">
+    <div class="vhs-card"><div class="thumb">TAPE 01</div><div class="meta"><h3>Brand Film AMORE</h3><span>PROMO // 2024</span></div></div>
+    <div class="vhs-card"><div class="thumb">TAPE 02</div><div class="meta"><h3>Summer Campaign</h3><span>COMMERCIAL // 2024</span></div></div>
+    <div class="vhs-card"><div class="thumb">TAPE 03</div><div class="meta"><h3>Motion Reel</h3><span>MOTION // 2024</span></div></div>
+    <div class="vhs-card"><div class="thumb">TAPE 04</div><div class="meta"><h3>Documentary</h3><span>DOC // 2023</span></div></div>
+    <div class="vhs-card"><div class="thumb">TAPE 05</div><div class="meta"><h3>Music Video Dawn</h3><span>MV // 2023</span></div></div>
+    <div class="vhs-card"><div class="thumb">TAPE 06</div><div class="meta"><h3>Product Launch</h3><span>PROMO // 2023</span></div></div>
+  </div>
+</section>
+
+<div class="tape-label">
+  <h2>Contact</h2>
+  <div class="line"></div>
+  <p>sunghoon@email.com</p>
+  <div class="line"></div>
+  <p>Seoul, South Korea</p>
+</div>
+
+<footer>End of Tape &middot; Rewind &amp; Play</footer>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Design 2 - Masonry Grid</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#ededed;font-family:-apple-system,'Helvetica Neue',sans-serif}
+a{color:inherit;text-decoration:none}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:0 48px;height:64px;display:flex;align-items:center;background:rgba(10,10,10,0.9);backdrop-filter:blur(12px);border-bottom:1px solid #1a1a1a}
+nav .logo{font-size:18px;font-weight:600;letter-spacing:2px;text-transform:uppercase}
+nav .links{margin-left:auto;display:flex;gap:32px}
+nav .links a{font-size:14px;color:#888;transition:color .2s}
+nav .links a:hover{color:#fff}
+
+.header{padding:120px 48px 60px;max-width:1400px;margin:0 auto}
+.header h1{font-size:48px;font-weight:700;margin-bottom:12px}
+.header p{color:#888;font-size:18px}
+
+.filters{padding:0 48px 40px;max-width:1400px;margin:0 auto;display:flex;gap:12px;flex-wrap:wrap}
+.filter-btn{padding:8px 20px;border-radius:100px;border:1px solid #2a2a2a;background:transparent;color:#888;font-size:13px;cursor:pointer;transition:all .2s}
+.filter-btn:hover,.filter-btn.active{background:#fff;color:#0a0a0a;border-color:#fff}
+
+.masonry{columns:3;column-gap:20px;padding:0 48px 80px;max-width:1400px;margin:0 auto}
+.masonry-item{break-inside:avoid;margin-bottom:20px;background:#141414;border-radius:8px;overflow:hidden;cursor:pointer;transition:transform .3s}
+.masonry-item:hover{transform:translateY(-4px)}
+.masonry-item .thumb{width:100%;display:flex;align-items:center;justify-content:center;color:#555;font-size:13px}
+.masonry-item:nth-child(odd) .thumb{height:280px;background:linear-gradient(135deg,#1a1a2e,#1a2a2e)}
+.masonry-item:nth-child(even) .thumb{height:200px;background:linear-gradient(135deg,#2a1a2e,#1a1a2e)}
+.masonry-item:nth-child(3n) .thumb{height:340px;background:linear-gradient(135deg,#1a2a1a,#1a1a2e)}
+.masonry-item .meta{padding:16px}
+.masonry-item .meta h3{font-size:16px;font-weight:600;margin-bottom:4px}
+.masonry-item .meta span{font-size:12px;color:#888}
+.masonry-item .meta .cat{display:inline-block;margin-top:8px;padding:2px 10px;background:#2a2a2a;border-radius:4px;font-size:11px;color:#aaa}
+
+footer{border-top:1px solid #1a1a1a;padding:48px;text-align:center;color:#888;font-size:13px}
+.back{position:fixed;bottom:24px;right:24px;background:#1a1a1a;border:1px solid #333;padding:8px 16px;border-radius:6px;color:#888;font-size:13px;z-index:99;transition:all .2s}
+.back:hover{background:#333;color:#fff}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back">All Designs</a>
+
+<nav>
+  <div class="logo">SH.LEE</div>
+  <div class="links">
+    <a href="#">Work</a>
+    <a href="#">Resume</a>
+    <a href="#">Contact</a>
+  </div>
+</nav>
+
+<div class="header">
+  <h1>Selected Works</h1>
+  <p>A collection of video projects, trailers, and motion design</p>
+</div>
+
+<div class="filters">
+  <button class="filter-btn active">All</button>
+  <button class="filter-btn">Promotional</button>
+  <button class="filter-btn">Commercial</button>
+  <button class="filter-btn">Motion Graphics</button>
+  <button class="filter-btn">Music Video</button>
+  <button class="filter-btn">Documentary</button>
+</div>
+
+<div class="masonry">
+  <div class="masonry-item"><div class="thumb">Thumbnail</div><div class="meta"><h3>Brand Film - AMORE</h3><span>2024</span><br><span class="cat">Promotional</span></div></div>
+  <div class="masonry-item"><div class="thumb">Thumbnail</div><div class="meta"><h3>Summer Campaign</h3><span>2024</span><br><span class="cat">Commercial</span></div></div>
+  <div class="masonry-item"><div class="thumb">Thumbnail</div><div class="meta"><h3>Motion Reel</h3><span>2024</span><br><span class="cat">Motion Graphics</span></div></div>
+  <div class="masonry-item"><div class="thumb">Thumbnail</div><div class="meta"><h3>Documentary Short</h3><span>2023</span><br><span class="cat">Documentary</span></div></div>
+  <div class="masonry-item"><div class="thumb">Thumbnail</div><div class="meta"><h3>Music Video - Dawn</h3><span>2023</span><br><span class="cat">Music Video</span></div></div>
+  <div class="masonry-item"><div class="thumb">Thumbnail</div><div class="meta"><h3>Product Launch TVC</h3><span>2023</span><br><span class="cat">Commercial</span></div></div>
+  <div class="masonry-item"><div class="thumb">Thumbnail</div><div class="meta"><h3>Title Sequence</h3><span>2023</span><br><span class="cat">Motion Graphics</span></div></div>
+  <div class="masonry-item"><div class="thumb">Thumbnail</div><div class="meta"><h3>Art Exhibition</h3><span>2022</span><br><span class="cat">Promotional</span></div></div>
+  <div class="masonry-item"><div class="thumb">Thumbnail</div><div class="meta"><h3>Corporate Video</h3><span>2022</span><br><span class="cat">Promotional</span></div></div>
+</div>
+
+<footer>&copy; 2024 Sunghoon LEE. All rights reserved.</footer>
+</body>
+</html>

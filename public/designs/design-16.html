@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Design 16 - Showcase Carousel</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#ededed;font-family:-apple-system,'Helvetica Neue',sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:0 48px;height:64px;display:flex;align-items:center;background:rgba(10,10,10,0.9);backdrop-filter:blur(12px)}
+nav .logo{font-size:18px;font-weight:600}
+nav .links{margin-left:auto;display:flex;gap:32px}
+nav .links a{font-size:14px;color:#888}
+
+.carousel-section{height:100vh;display:flex;flex-direction:column;justify-content:center;padding:80px 0 40px}
+.carousel-header{padding:0 48px;margin-bottom:40px;display:flex;align-items:flex-end;justify-content:space-between}
+.carousel-header h1{font-size:48px;font-weight:700}
+.carousel-header p{color:#888;font-size:14px}
+.carousel-controls{display:flex;gap:12px}
+.carousel-controls button{width:48px;height:48px;border-radius:50%;border:1px solid #333;background:transparent;color:#fff;font-size:20px;cursor:pointer;transition:all .2s}
+.carousel-controls button:hover{background:#fff;color:#0a0a0a}
+
+.carousel-track{display:flex;gap:24px;padding:0 48px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.carousel-track::-webkit-scrollbar{display:none}
+.carousel-card{flex-shrink:0;width:70vw;max-width:900px;scroll-snap-align:start;background:#141414;border:1px solid #1a1a1a;border-radius:16px;overflow:hidden;cursor:pointer;transition:all .3s}
+.carousel-card:hover{border-color:#333}
+.carousel-card .thumb{aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;color:#555;font-size:16px;position:relative}
+.carousel-card:nth-child(1) .thumb{background:linear-gradient(135deg,#1a1a3e,#2a1a4e)}
+.carousel-card:nth-child(2) .thumb{background:linear-gradient(135deg,#1a2a3e,#0a3a4e)}
+.carousel-card:nth-child(3) .thumb{background:linear-gradient(135deg,#2a1a2e,#3a1a3e)}
+.carousel-card:nth-child(4) .thumb{background:linear-gradient(135deg,#1a2a1a,#0a3a2a)}
+.carousel-card:nth-child(5) .thumb{background:linear-gradient(135deg,#2a2a1a,#3a3a0a)}
+.carousel-card:nth-child(6) .thumb{background:linear-gradient(135deg,#2a1a1a,#3a0a1a)}
+.carousel-card .thumb .play-icon{width:64px;height:64px;border:2px solid rgba(255,255,255,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .3s}
+.carousel-card:hover .thumb .play-icon{border-color:#fff;transform:scale(1.1)}
+.carousel-card .thumb .play-icon::after{content:'';border-left:16px solid #fff;border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:3px}
+.carousel-card .meta{padding:24px;display:flex;align-items:center;justify-content:space-between}
+.carousel-card .meta h3{font-size:20px;font-weight:600}
+.carousel-card .meta span{font-size:14px;color:#888}
+
+.mini-grid{padding:80px 48px;max-width:1400px;margin:0 auto}
+.mini-grid h2{font-size:24px;font-weight:600;margin-bottom:32px}
+.mini-grid .row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.mini-card{background:#141414;border:1px solid #1a1a1a;border-radius:8px;overflow:hidden;cursor:pointer;transition:all .2s}
+.mini-card:hover{border-color:#333}
+.mini-card .thumb{aspect-ratio:16/9;background:linear-gradient(135deg,#1a1a2e,#1a2a3e);display:flex;align-items:center;justify-content:center;color:#555;font-size:12px}
+.mini-card .meta{padding:12px}
+.mini-card .meta h4{font-size:14px;margin-bottom:2px}
+.mini-card .meta span{font-size:11px;color:#888}
+
+footer{border-top:1px solid #1a1a1a;padding:48px;text-align:center;color:#888;font-size:13px}
+.back{position:fixed;bottom:24px;right:24px;background:#1a1a1a;border:1px solid #333;padding:8px 16px;border-radius:6px;color:#888;font-size:13px;z-index:99}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back">All Designs</a>
+<nav><div class="logo">Sunghoon LEE</div><div class="links"><a href="#">Work</a><a href="#">Resume</a><a href="#">Contact</a></div></nav>
+
+<section class="carousel-section">
+  <div class="carousel-header">
+    <div><h1>Featured Work</h1><p>Drag or use arrows to browse</p></div>
+    <div class="carousel-controls"><button>&larr;</button><button>&rarr;</button></div>
+  </div>
+  <div class="carousel-track">
+    <div class="carousel-card"><div class="thumb"><div class="play-icon"></div></div><div class="meta"><h3>Brand Film - AMORE</h3><span>Promotional &middot; 2024</span></div></div>
+    <div class="carousel-card"><div class="thumb"><div class="play-icon"></div></div><div class="meta"><h3>Summer Campaign</h3><span>Commercial &middot; 2024</span></div></div>
+    <div class="carousel-card"><div class="thumb"><div class="play-icon"></div></div><div class="meta"><h3>Motion Reel 2024</h3><span>Motion Graphics &middot; 2024</span></div></div>
+    <div class="carousel-card"><div class="thumb"><div class="play-icon"></div></div><div class="meta"><h3>Documentary Short</h3><span>Documentary &middot; 2023</span></div></div>
+    <div class="carousel-card"><div class="thumb"><div class="play-icon"></div></div><div class="meta"><h3>Music Video - Dawn</h3><span>Music Video &middot; 2023</span></div></div>
+    <div class="carousel-card"><div class="thumb"><div class="play-icon"></div></div><div class="meta"><h3>Product Launch</h3><span>Promotional &middot; 2023</span></div></div>
+  </div>
+</section>
+
+<section class="mini-grid">
+  <h2>All Projects</h2>
+  <div class="row">
+    <div class="mini-card"><div class="thumb">Thumb</div><div class="meta"><h4>Title Sequence</h4><span>Motion &middot; 2023</span></div></div>
+    <div class="mini-card"><div class="thumb">Thumb</div><div class="meta"><h4>Art Exhibition</h4><span>Promo &middot; 2022</span></div></div>
+    <div class="mini-card"><div class="thumb">Thumb</div><div class="meta"><h4>Corporate Video</h4><span>Promo &middot; 2022</span></div></div>
+    <div class="mini-card"><div class="thumb">Thumb</div><div class="meta"><h4>Wedding Film</h4><span>Event &middot; 2022</span></div></div>
+  </div>
+</section>
+
+<footer>&copy; 2024 Sunghoon LEE</footer>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Design 6 - Gradient Glow</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#ededed;font-family:-apple-system,'Helvetica Neue',sans-serif}
+a{color:inherit;text-decoration:none}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:0 48px;height:64px;display:flex;align-items:center;background:rgba(10,10,15,0.8);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.05)}
+nav .logo{font-size:18px;font-weight:600;background:linear-gradient(135deg,#a78bfa,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+nav .links{margin-left:auto;display:flex;gap:32px}
+nav .links a{font-size:14px;color:#888;transition:color .2s}
+nav .links a:hover{color:#fff}
+
+.hero{height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(167,139,250,0.15),transparent 70%);top:-100px;right:-200px}
+.hero::after{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(244,114,182,0.1),transparent 70%);bottom:-100px;left:-150px}
+.hero h1{font-size:64px;font-weight:700;margin-bottom:16px;position:relative;z-index:1}
+.hero h1 span{background:linear-gradient(135deg,#a78bfa,#f472b6,#fb923c);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:#888;font-size:18px;position:relative;z-index:1}
+
+.grid{padding:80px 48px;max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:16px;overflow:hidden;transition:all .3s;position:relative}
+.card::before{content:'';position:absolute;inset:-1px;border-radius:16px;padding:1px;background:linear-gradient(135deg,rgba(167,139,250,0.3),transparent,rgba(244,114,182,0.3));mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;opacity:0;transition:opacity .3s}
+.card:hover::before{opacity:1}
+.card:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(167,139,250,0.1)}
+.card .thumb{aspect-ratio:16/9;background:linear-gradient(135deg,#1a1a2e,#2a1a3e);display:flex;align-items:center;justify-content:center;color:#555}
+.card .meta{padding:20px}
+.card .meta h3{font-size:17px;font-weight:600;margin-bottom:6px}
+.card .meta span{color:#888;font-size:13px}
+.card .meta .tags{margin-top:10px;display:flex;gap:8px}
+.card .meta .tag{padding:3px 10px;border-radius:100px;background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2);font-size:11px;color:#a78bfa}
+
+.cta-section{padding:120px 48px;text-align:center}
+.cta-section h2{font-size:40px;font-weight:700;margin-bottom:16px}
+.cta-section h2 span{background:linear-gradient(135deg,#a78bfa,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.cta-section p{color:#888;margin-bottom:32px}
+.cta-btn{display:inline-block;padding:16px 40px;border-radius:100px;background:linear-gradient(135deg,#a78bfa,#f472b6);color:#fff;font-size:15px;font-weight:600;transition:transform .2s,box-shadow .2s}
+.cta-btn:hover{transform:scale(1.05);box-shadow:0 8px 32px rgba(167,139,250,0.3)}
+
+footer{border-top:1px solid rgba(255,255,255,0.05);padding:48px;text-align:center;color:#888;font-size:13px}
+.back{position:fixed;bottom:24px;right:24px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);padding:8px 16px;border-radius:8px;color:#888;font-size:13px;z-index:99;backdrop-filter:blur(8px)}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back">All Designs</a>
+
+<nav>
+  <div class="logo">Sunghoon LEE</div>
+  <div class="links"><a href="#">Work</a><a href="#">Resume</a><a href="#">Contact</a></div>
+</nav>
+
+<section class="hero">
+  <h1>Create <span>Visual Magic</span></h1>
+  <p>Video Production &middot; Motion Graphics &middot; Post Production</p>
+</section>
+
+<section class="grid">
+  <div class="card"><div class="thumb">Thumbnail</div><div class="meta"><h3>Brand Film - AMORE</h3><span>2024</span><div class="tags"><span class="tag">Promotional</span></div></div></div>
+  <div class="card"><div class="thumb">Thumbnail</div><div class="meta"><h3>Summer Campaign</h3><span>2024</span><div class="tags"><span class="tag">Commercial</span></div></div></div>
+  <div class="card"><div class="thumb">Thumbnail</div><div class="meta"><h3>Motion Reel 2024</h3><span>2024</span><div class="tags"><span class="tag">Motion</span></div></div></div>
+  <div class="card"><div class="thumb">Thumbnail</div><div class="meta"><h3>Documentary Short</h3><span>2023</span><div class="tags"><span class="tag">Documentary</span></div></div></div>
+  <div class="card"><div class="thumb">Thumbnail</div><div class="meta"><h3>Music Video - Dawn</h3><span>2023</span><div class="tags"><span class="tag">Music Video</span></div></div></div>
+  <div class="card"><div class="thumb">Thumbnail</div><div class="meta"><h3>Product Launch</h3><span>2023</span><div class="tags"><span class="tag">Promotional</span></div></div></div>
+</section>
+
+<section class="cta-section">
+  <h2>Ready to <span>Collaborate</span>?</h2>
+  <p>Let's create something extraordinary together.</p>
+  <a href="#" class="cta-btn">Get in Touch</a>
+</section>
+
+<footer>&copy; 2024 Sunghoon LEE</footer>
+</body>
+</html>

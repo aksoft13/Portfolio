@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Design 10 - Immersive Fullscreen</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000;color:#fff;font-family:-apple-system,'Helvetica Neue',sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:0 48px;height:64px;display:flex;align-items:center;background:transparent;mix-blend-mode:difference}
+nav .logo{font-size:18px;font-weight:600;color:#fff}
+nav .links{margin-left:auto;display:flex;gap:32px}
+nav .links a{font-size:14px;color:#fff}
+
+.slide{height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.slide-bg{position:absolute;inset:0;z-index:0}
+.slide:nth-child(1) .slide-bg{background:linear-gradient(135deg,#0a0a2e,#1a0a3e)}
+.slide:nth-child(2) .slide-bg{background:linear-gradient(135deg,#0a1a2e,#0a2a3e)}
+.slide:nth-child(3) .slide-bg{background:linear-gradient(135deg,#1a0a1e,#2a0a2e)}
+.slide:nth-child(4) .slide-bg{background:linear-gradient(135deg,#0a1a0a,#0a2a1a)}
+.slide:nth-child(5) .slide-bg{background:linear-gradient(135deg,#1a1a0a,#2a2a0a)}
+.slide:nth-child(6) .slide-bg{background:linear-gradient(135deg,#1a0a0a,#2a1a1a)}
+.slide-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.4);z-index:1}
+.slide-content{position:relative;z-index:2;text-align:center;max-width:700px;padding:0 24px}
+.slide-content .cat{font-size:12px;text-transform:uppercase;letter-spacing:4px;color:rgba(255,255,255,0.6);margin-bottom:16px}
+.slide-content h2{font-size:56px;font-weight:700;margin-bottom:16px;line-height:1.1}
+.slide-content p{font-size:16px;color:rgba(255,255,255,0.7);margin-bottom:32px}
+.slide-content .play{width:64px;height:64px;border:2px solid rgba(255,255,255,0.5);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;transition:all .3s;cursor:pointer}
+.slide-content .play:hover{border-color:#fff;transform:scale(1.1)}
+.slide-content .play::after{content:'';border-left:16px solid #fff;border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:3px}
+.slide-num{position:absolute;right:48px;bottom:48px;z-index:2;font-size:72px;font-weight:800;color:rgba(255,255,255,0.05)}
+.slide-scroll{position:absolute;left:48px;bottom:48px;z-index:2;font-size:12px;color:rgba(255,255,255,0.4);letter-spacing:2px;writing-mode:vertical-lr}
+
+.back{position:fixed;bottom:24px;right:24px;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.2);padding:8px 16px;border-radius:6px;color:#fff;font-size:13px;z-index:99;backdrop-filter:blur(8px)}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back">All Designs</a>
+
+<nav><div class="logo">Sunghoon LEE</div><div class="links"><a href="#">Work</a><a href="#">Resume</a><a href="#">Contact</a></div></nav>
+
+<section class="slide">
+  <div class="slide-bg"></div><div class="slide-overlay"></div>
+  <div class="slide-content"><div class="cat">Promotional &middot; 2024</div><h2>Brand Film<br>AMORE</h2><p>Cinematic brand storytelling for AMORE Pacific's new collection launch</p><div class="play"></div></div>
+  <div class="slide-num">01</div><div class="slide-scroll">SCROLL</div>
+</section>
+
+<section class="slide">
+  <div class="slide-bg"></div><div class="slide-overlay"></div>
+  <div class="slide-content"><div class="cat">Commercial &middot; 2024</div><h2>Summer<br>Campaign</h2><p>A vibrant summer commercial capturing the energy of youth and freedom</p><div class="play"></div></div>
+  <div class="slide-num">02</div>
+</section>
+
+<section class="slide">
+  <div class="slide-bg"></div><div class="slide-overlay"></div>
+  <div class="slide-content"><div class="cat">Motion Graphics &middot; 2024</div><h2>Motion<br>Reel 2024</h2><p>A compilation of the year's best motion graphics and visual effects work</p><div class="play"></div></div>
+  <div class="slide-num">03</div>
+</section>
+
+<section class="slide">
+  <div class="slide-bg"></div><div class="slide-overlay"></div>
+  <div class="slide-content"><div class="cat">Documentary &middot; 2023</div><h2>Documentary<br>Short</h2><p>An intimate documentary exploring traditional Korean craftsmanship</p><div class="play"></div></div>
+  <div class="slide-num">04</div>
+</section>
+
+<section class="slide">
+  <div class="slide-bg"></div><div class="slide-overlay"></div>
+  <div class="slide-content"><div class="cat">Music Video &middot; 2023</div><h2>Music Video<br>Dawn</h2><p>A dreamlike music video blending reality and fantasy</p><div class="play"></div></div>
+  <div class="slide-num">05</div>
+</section>
+
+<section class="slide">
+  <div class="slide-bg"></div><div class="slide-overlay"></div>
+  <div class="slide-content"><div class="cat">Promotional &middot; 2023</div><h2>Product<br>Launch</h2><p>High-energy product launch video for a tech brand</p><div class="play"></div></div>
+  <div class="slide-num">06</div>
+</section>
+</body>
+</html>

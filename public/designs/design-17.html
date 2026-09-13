@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Design 17 - Asymmetric Overlap</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#ededed;font-family:-apple-system,'Helvetica Neue',sans-serif}
+a{color:inherit;text-decoration:none}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:0 48px;height:64px;display:flex;align-items:center;background:rgba(10,10,10,0.9);backdrop-filter:blur(12px)}
+nav .logo{font-size:18px;font-weight:600}
+nav .links{margin-left:auto;display:flex;gap:32px}
+nav .links a{font-size:14px;color:#888}
+
+.hero{padding:160px 48px 120px;max-width:1400px;margin:0 auto;position:relative}
+.hero h1{font-size:80px;font-weight:800;line-height:0.95;margin-bottom:24px}
+.hero p{font-size:18px;color:#888;max-width:400px}
+.hero-img{position:absolute;right:48px;top:120px;width:45%;aspect-ratio:16/9;background:linear-gradient(135deg,#1a1a3e,#2a1a4e);border-radius:12px;display:flex;align-items:center;justify-content:center;color:#555}
+
+.overlap-section{max-width:1400px;margin:0 auto;padding:0 48px}
+.overlap-row{position:relative;min-height:500px;margin-bottom:120px}
+.overlap-row .bg-block{width:60%;aspect-ratio:16/9;background:#141414;border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#555;font-size:14px}
+.overlap-row:nth-child(odd) .bg-block{margin-left:0;background:linear-gradient(135deg,#1a1a2e,#1a2a3e)}
+.overlap-row:nth-child(even) .bg-block{margin-left:auto;background:linear-gradient(135deg,#2a1a2e,#3a1a3e)}
+.overlap-row .info-block{position:absolute;background:#141414;border:1px solid #2a2a2a;border-radius:12px;padding:40px;width:45%;max-width:500px}
+.overlap-row:nth-child(odd) .info-block{right:0;bottom:-40px}
+.overlap-row:nth-child(even) .info-block{left:0;bottom:-40px}
+.overlap-row .info-block .num{font-size:48px;font-weight:800;color:#2a2a2a;margin-bottom:8px}
+.overlap-row .info-block h3{font-size:28px;font-weight:600;margin-bottom:8px}
+.overlap-row .info-block p{color:#888;font-size:14px;line-height:1.6;margin-bottom:12px}
+.overlap-row .info-block .tag{display:inline-block;padding:4px 12px;background:#2a2a2a;border-radius:4px;font-size:12px;color:#aaa}
+
+footer{border-top:1px solid #1a1a1a;padding:48px;text-align:center;color:#888;font-size:13px;margin-top:120px}
+.back{position:fixed;bottom:24px;right:24px;background:#1a1a1a;border:1px solid #333;padding:8px 16px;border-radius:6px;color:#888;font-size:13px;z-index:99}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back">All Designs</a>
+<nav><div class="logo">Sunghoon LEE</div><div class="links"><a href="#">Work</a><a href="#">Resume</a><a href="#">Contact</a></div></nav>
+
+<section class="hero">
+  <h1>BREAK<br>THE<br>GRID</h1>
+  <p>Video production that defies convention. Every project is a new visual experience.</p>
+  <div class="hero-img">Showreel</div>
+</section>
+
+<section class="overlap-section">
+  <div class="overlap-row">
+    <div class="bg-block">Brand Film Video</div>
+    <div class="info-block"><div class="num">01</div><h3>Brand Film - AMORE</h3><p>Cinematic brand storytelling that captures the essence of beauty</p><span class="tag">Promotional &middot; 2024</span></div>
+  </div>
+  <div class="overlap-row">
+    <div class="bg-block">Campaign Video</div>
+    <div class="info-block"><div class="num">02</div><h3>Summer Campaign</h3><p>Energetic commercial capturing summer vibes</p><span class="tag">Commercial &middot; 2024</span></div>
+  </div>
+  <div class="overlap-row">
+    <div class="bg-block">Motion Reel</div>
+    <div class="info-block"><div class="num">03</div><h3>Motion Reel 2024</h3><p>Best motion graphics and visual effects compilation</p><span class="tag">Motion Graphics &middot; 2024</span></div>
+  </div>
+  <div class="overlap-row">
+    <div class="bg-block">Documentary</div>
+    <div class="info-block"><div class="num">04</div><h3>Documentary Short</h3><p>An intimate look at Korean traditional craftsmanship</p><span class="tag">Documentary &middot; 2023</span></div>
+  </div>
+</section>
+
+<footer>&copy; 2024 Sunghoon LEE</footer>
+</body>
+</html>

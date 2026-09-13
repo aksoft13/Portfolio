@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Design 18 - Terminal / Hacker</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0f0a;color:#00ff41;font-family:'Courier New',monospace;font-size:14px}
+a{color:#00ff41;text-decoration:none}
+
+.terminal{max-width:1000px;margin:0 auto;padding:24px}
+.title-bar{background:#1a1a1a;border:1px solid #00ff41;padding:8px 16px;margin-bottom:0;display:flex;align-items:center;gap:8px;border-bottom:none}
+.title-bar .dot{width:10px;height:10px;border-radius:50%;border:1px solid #00ff41}
+.title-bar span{margin-left:auto;font-size:12px;color:#00ff41;opacity:0.5}
+.screen{border:1px solid #00ff41;padding:32px;min-height:calc(100vh - 60px);position:relative;background:rgba(0,255,65,0.02)}
+.screen::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,255,65,0.015) 2px,rgba(0,255,65,0.015) 4px);pointer-events:none}
+
+.prompt{color:#00ff41;margin-bottom:4px}
+.prompt::before{content:'> '}
+.output{color:#00cc33;margin-bottom:16px;padding-left:16px}
+.cursor{display:inline-block;width:8px;height:14px;background:#00ff41;animation:blink 1s step-end infinite;vertical-align:middle}
+@keyframes blink{50%{opacity:0}}
+
+.ascii-art{color:#00ff41;font-size:10px;line-height:1.2;margin:24px 0;white-space:pre}
+
+.divider{border:none;border-top:1px dashed #00ff41;margin:24px 0;opacity:0.3}
+
+.project-entry{margin-bottom:24px;padding:16px;border:1px solid rgba(0,255,65,0.2);transition:all .2s;cursor:pointer}
+.project-entry:hover{background:rgba(0,255,65,0.05);border-color:#00ff41}
+.project-entry .id{color:#00ff41;opacity:0.5}
+.project-entry h3{color:#00ff41;font-weight:normal;font-size:16px}
+.project-entry .details{color:#00cc33;opacity:0.7;font-size:13px}
+
+.stats-block{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin:24px 0}
+.stats-block .stat{padding:16px;border:1px solid rgba(0,255,65,0.2)}
+.stats-block .stat .val{font-size:32px;font-weight:bold}
+.stats-block .stat .key{opacity:0.5;font-size:12px}
+
+.contact-block{border:1px solid #00ff41;padding:24px;margin-top:24px}
+
+.back{position:fixed;bottom:24px;right:24px;background:#0a0f0a;border:1px solid #00ff41;padding:8px 16px;color:#00ff41;font-family:monospace;font-size:12px;z-index:99}
+.back:hover{background:#00ff41;color:#0a0f0a}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back">&lt; exit</a>
+
+<div class="terminal">
+  <div class="title-bar">
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <span>portfolio@sh-lee:~</span>
+  </div>
+  <div class="screen">
+    <div class="prompt">whoami</div>
+    <div class="output">Sunghoon Lee - Video Creator / Seoul, KR</div>
+
+    <div class="prompt">cat about.txt</div>
+    <div class="output">Seoul-based video creator specializing in<br>promotional videos, trailers, and motion graphics.<br>Turning ideas into cinematic experiences.</div>
+
+<pre class="ascii-art">
+ _____ _   _   _     _____ _____
+|   __| |_| | | |   |   __|   __|
+|__   |  _  |_| |___|   __|   __|
+|_____|_| |_|_|_____|_____|_____|
+        VIDEO PORTFOLIO v2.0
+</pre>
+
+    <hr class="divider">
+
+    <div class="prompt">ls -la ./projects/</div>
+    <div class="output">total 8 projects found:</div>
+
+    <div class="project-entry"><span class="id">[001]</span> <h3>brand-film-amore.mp4</h3><div class="details">type: promotional | year: 2024 | duration: 3:20</div></div>
+    <div class="project-entry"><span class="id">[002]</span> <h3>summer-campaign.mp4</h3><div class="details">type: commercial | year: 2024 | duration: 1:00</div></div>
+    <div class="project-entry"><span class="id">[003]</span> <h3>motion-reel-2024.mp4</h3><div class="details">type: motion_graphics | year: 2024 | duration: 2:45</div></div>
+    <div class="project-entry"><span class="id">[004]</span> <h3>documentary-short.mp4</h3><div class="details">type: documentary | year: 2023 | duration: 12:30</div></div>
+    <div class="project-entry"><span class="id">[005]</span> <h3>music-video-dawn.mp4</h3><div class="details">type: music_video | year: 2023 | duration: 4:15</div></div>
+    <div class="project-entry"><span class="id">[006]</span> <h3>product-launch.mp4</h3><div class="details">type: promotional | year: 2023 | duration: 2:00</div></div>
+
+    <hr class="divider">
+
+    <div class="prompt">cat stats.json</div>
+    <div class="stats-block">
+      <div class="stat"><div class="val">50+</div><div class="key">"projects_completed"</div></div>
+      <div class="stat"><div class="val">4</div><div class="key">"years_experience"</div></div>
+      <div class="stat"><div class="val">30+</div><div class="key">"clients_served"</div></div>
+      <div class="stat"><div class="val">5</div><div class="key">"awards_received"</div></div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="prompt">cat contact.txt</div>
+    <div class="contact-block">
+      email: sunghoon@email.com<br>
+      instagram: @sh.lee<br>
+      vimeo: vimeo.com/shlee
+    </div>
+
+    <br>
+    <div class="prompt"><span class="cursor"></span></div>
+  </div>
+</div>
+</body>
+</html>

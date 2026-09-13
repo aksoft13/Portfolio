@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sunghoon LEE - Video Portfolio</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#ededed;font-family:-apple-system,'Helvetica Neue',sans-serif}
+a{color:inherit;text-decoration:none}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:50;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(10,10,10,0.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.06)}
+nav .name{font-size:17px;font-weight:600;letter-spacing:0.5px}
+nav .links{display:flex;gap:28px}
+nav .links a{font-size:13px;color:#888;transition:color .2s;letter-spacing:0.3px}
+nav .links a:hover{color:#fff}
+nav .links a.active{color:#fff}
+
+.portfolio{max-width:1400px;margin:0 auto;padding:100px 40px 60px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+
+.project{position:relative;overflow:hidden;border-radius:6px;cursor:pointer;aspect-ratio:16/9}
+.project img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.25,.1,.25,1),filter .4s}
+.project:hover img{transform:scale(1.04);filter:brightness(0.4)}
+.project .overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:24px;opacity:0;transition:opacity .35s}
+.project:hover .overlay{opacity:1}
+.project .overlay h3{font-size:18px;font-weight:600;margin-bottom:3px;transform:translateY(8px);transition:transform .35s}
+.project:hover .overlay h3{transform:translateY(0)}
+.project .overlay .meta{font-size:13px;color:rgba(255,255,255,0.6);transform:translateY(8px);transition:transform .35s .05s}
+.project:hover .overlay .meta{transform:translateY(0)}
+
+.back-top{display:block;text-align:center;padding:60px 0 40px;font-size:13px;color:#555;transition:color .2s}
+.back-top:hover{color:#fff}
+footer{border-top:1px solid rgba(255,255,255,0.06);padding:40px;text-align:center;color:#444;font-size:12px}
+
+/* DETAIL PAGE */
+.detail{display:none;max-width:1000px;margin:0 auto;padding:100px 40px 60px}
+.detail .back-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#888;margin-bottom:32px;transition:color .2s;cursor:pointer}
+.detail .back-btn:hover{color:#fff}
+.detail .video-area{width:100%;aspect-ratio:16/9;background:#111;border-radius:8px;overflow:hidden;margin-bottom:32px;position:relative}
+.detail .video-area img{width:100%;height:100%;object-fit:cover}
+.detail .video-area .play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:72px;height:72px;border:2px solid rgba(255,255,255,0.5);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s}
+.detail .video-area .play-btn:hover{border-color:#fff;transform:translate(-50%,-50%) scale(1.1)}
+.detail .video-area .play-btn::after{content:'';border-left:18px solid #fff;border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:4px}
+.detail .info{display:grid;grid-template-columns:2fr 1fr;gap:48px}
+.detail .info h1{font-size:32px;font-weight:700;margin-bottom:16px}
+.detail .info .desc{color:#999;font-size:15px;line-height:1.8}
+.detail .sidebar-info{padding-top:8px}
+.detail .sidebar-info .item{margin-bottom:20px}
+.detail .sidebar-info .label{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#555;margin-bottom:4px}
+.detail .sidebar-info .value{font-size:14px;color:#ccc}
+.detail .related{margin-top:60px}
+.detail .related h2{font-size:14px;color:#555;text-transform:uppercase;letter-spacing:2px;margin-bottom:20px}
+.detail .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.detail .related-grid .rel{aspect-ratio:16/9;border-radius:6px;overflow:hidden;cursor:pointer;position:relative}
+.detail .related-grid .rel img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.detail .related-grid .rel:hover img{transform:scale(1.05);filter:brightness(0.5)}
+.detail .related-grid .rel span{position:absolute;bottom:12px;left:12px;font-size:13px;font-weight:500;opacity:0;transition:opacity .3s}
+.detail .related-grid .rel:hover span{opacity:1}
+
+@media(max-width:768px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  nav{padding:0 20px}
+  .portfolio{padding:80px 20px 40px}
+  .detail{padding:80px 20px 40px}
+  .detail .info{grid-template-columns:1fr}
+  .detail .related-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+.back{position:fixed;bottom:20px;right:20px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);padding:7px 14px;border-radius:6px;color:#888;font-size:12px;z-index:99;backdrop-filter:blur(8px);transition:all .2s}
+.back:hover{background:rgba(255,255,255,0.12);color:#fff}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back">All Designs</a>
+
+<nav>
+  <a href="#" class="name" onclick="showList();return false">Sunghoon LEE</a>
+  <div class="links">
+    <a href="#" class="active" onclick="showList();return false">Work</a>
+    <a href="#">Resume</a>
+    <a href="#">Contact</a>
+    <a href="#" style="color:#333;font-size:12px">Admin</a>
+  </div>
+</nav>
+
+<!-- LIST VIEW -->
+<div class="portfolio" id="listView">
+  <div class="grid" id="grid"></div>
+  <a href="#" class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false">Back to Top</a>
+</div>
+
+<!-- DETAIL VIEW -->
+<div class="detail" id="detailView">
+  <div class="back-btn" onclick="showList()">&#8592; Back to all projects</div>
+  <div class="video-area">
+    <img id="detailImg" src="" alt="">
+    <div class="play-btn"></div>
+  </div>
+  <div class="info">
+    <div>
+      <h1 id="detailTitle"></h1>
+      <div class="desc" id="detailDesc"></div>
+    </div>
+    <div class="sidebar-info">
+      <div class="item"><div class="label">Category</div><div class="value" id="detailCat"></div></div>
+      <div class="item"><div class="label">Year</div><div class="value" id="detailYear"></div></div>
+      <div class="item"><div class="label">Duration</div><div class="value" id="detailDur"></div></div>
+      <div class="item"><div class="label">Client</div><div class="value" id="detailClient"></div></div>
+      <div class="item"><div class="label">Role</div><div class="value" id="detailRole"></div></div>
+    </div>
+  </div>
+  <div class="related">
+    <h2>Other Projects</h2>
+    <div class="related-grid" id="relatedGrid"></div>
+  </div>
+</div>
+
+<footer>&copy; 2024 Sunghoon LEE. All rights reserved.</footer>
+
+<script>
+const projects = [
+  { id:1, title:"Brand Film - AMORE Pacific", cat:"Promotional", year:2024, dur:"3:20", client:"AMORE Pacific", role:"Director / Editor", img:"https://picsum.photos/seed/amore/800/450", desc:"AMORE Pacific의 새 컬렉션 런칭을 위한 시네마틱 브랜드 필름. 자연과 아름다움의 조화를 영상으로 표현하였으며, 감성적인 컬러 그레이딩과 슬로우 모션 기법을 활용했습니다." },
+  { id:2, title:"Summer Campaign TVC", cat:"Commercial", year:2024, dur:"1:00", client:"Lotte Duty Free", role:"Director / Colorist", img:"https://picsum.photos/seed/summer/800/450", desc:"여름 시즌 면세점 캠페인 TVC. 청량하고 활기찬 분위기를 담아 MZ세대 타겟 광고를 제작했습니다." },
+  { id:3, title:"Motion Reel 2024", cat:"Motion Graphics", year:2024, dur:"2:45", client:"Personal", role:"Motion Designer", img:"https://picsum.photos/seed/motion24/800/450", desc:"2024년 모션 그래픽 작업을 모은 쇼릴. 타이포그래피 애니메이션, 3D 요소, 인포그래픽 등 다양한 스타일을 포함합니다." },
+  { id:4, title:"Hyundai Brand Identity", cat:"Promotional", year:2024, dur:"2:10", client:"Hyundai Motor", role:"Director / VFX", img:"https://picsum.photos/seed/hyundai/800/450", desc:"현대자동차 브랜드 아이덴티티 영상. 미래 모빌리티 비전을 시각화하고 브랜드 철학을 담았습니다." },
+  { id:5, title:"Seoul Fashion Week Recap", cat:"Event", year:2024, dur:"4:30", client:"Seoul Fashion Week", role:"Cinematographer / Editor", img:"https://picsum.photos/seed/fashion/800/450", desc:"서울패션위크 현장 리캡 영상. 런웨이, 백스테이지, 인터뷰를 담아 패션위크의 에너지를 전달합니다." },
+  { id:6, title:"Documentary - Hands of Seoul", cat:"Documentary", year:2023, dur:"12:30", client:"Seoul Foundation", role:"Director / DP", img:"https://picsum.photos/seed/hands/800/450", desc:"서울의 전통 장인들을 조명하는 다큐멘터리 단편. 도자기, 한지, 매듭 등 전통 공예의 아름다움과 장인정신을 기록했습니다." },
+  { id:7, title:"Music Video - Dawn", cat:"Music Video", year:2023, dur:"4:15", client:"Independent Artist", role:"Director / Editor", img:"https://picsum.photos/seed/dawn/800/450", desc:"인디 아티스트의 뮤직비디오. 몽환적인 새벽 풍경과 추상적인 퍼포먼스를 결합한 비주얼 내러티브입니다." },
+  { id:8, title:"Samsung Galaxy Unpacked", cat:"Commercial", year:2023, dur:"1:30", client:"Samsung Electronics", role:"Editor / Motion", img:"https://picsum.photos/seed/galaxy/800/450", desc:"삼성 갤럭시 언팩 이벤트 하이라이트 영상. 제품 공개 순간의 역동적인 에너지를 편집으로 극대화했습니다." },
+  { id:9, title:"Product Launch - NeoTech", cat:"Promotional", year:2023, dur:"2:00", client:"NeoTech Startup", role:"Director / Editor", img:"https://picsum.photos/seed/neotech/800/450", desc:"테크 스타트업의 신제품 론칭 프로모션 영상. 미니멀한 제품 촬영과 인포그래픽 모션을 결합했습니다." },
+  { id:10, title:"Title Sequence - Night Train", cat:"Motion Graphics", year:2023, dur:"0:45", client:"KBS Drama", role:"Motion Designer", img:"https://picsum.photos/seed/title/800/450", desc:"KBS 드라마 '야간열차' 타이틀 시퀀스. 열차의 움직임과 밤의 정서를 타이포그래피와 모션으로 표현했습니다." },
+  { id:11, title:"Art Exhibition - Lines", cat:"Promotional", year:2022, dur:"3:00", client:"Gallery Hyundai", role:"Director / DP", img:"https://picsum.photos/seed/artlines/800/450", desc:"갤러리현대 기획전 'Lines' 전시 프로모션 영상. 작가의 작품 세계를 영상 언어로 재해석했습니다." },
+  { id:12, title:"Corporate Film - LG", cat:"Promotional", year:2022, dur:"5:00", client:"LG Electronics", role:"Director / Editor", img:"https://picsum.photos/seed/lgcorp/800/450", desc:"LG전자 기업 소개 영상. 기술 혁신과 지속가능성을 주제로 글로벌 기업의 비전을 담았습니다." },
+  { id:13, title:"Year-End Showreel 2022", cat:"Showreel", year:2022, dur:"3:30", client:"Personal", role:"All Roles", img:"https://picsum.photos/seed/reel22/800/450", desc:"2022년 한 해 동안의 작업을 정리한 연말 쇼릴. 다양한 프로젝트의 하이라이트를 담았습니다." },
+  { id:14, title:"Cafe Branding Film", cat:"Promotional", year:2022, dur:"1:45", client:"Anthracite Coffee", role:"Director / Colorist", img:"https://picsum.photos/seed/cafe/800/450", desc:"앤트러사이트 카페 브랜딩 필름. 공간의 분위기와 커피 제조 과정을 감각적으로 담아냈습니다." },
+  { id:15, title:"Wedding Highlight", cat:"Event", year:2022, dur:"6:00", client:"Private", role:"Cinematographer / Editor", img:"https://picsum.photos/seed/wedding/800/450", desc:"프라이빗 웨딩 하이라이트 영상. 가장 아름다운 순간들을 시네마틱하게 기록했습니다." },
+];
+
+// Render grid
+const grid = document.getElementById('grid');
+projects.forEach(p => {
+  const div = document.createElement('div');
+  div.className = 'project';
+  div.onclick = () => showDetail(p.id);
+  div.innerHTML = `<img src="${p.img}" alt="${p.title}" loading="lazy"><div class="overlay"><h3>${p.title}</h3><div class="meta">${p.cat} &middot; ${p.dur}</div></div>`;
+  grid.appendChild(div);
+});
+
+function showDetail(id) {
+  const p = projects.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('detailImg').src = p.img;
+  document.getElementById('detailTitle').textContent = p.title;
+  document.getElementById('detailDesc').textContent = p.desc;
+  document.getElementById('detailCat').textContent = p.cat;
+  document.getElementById('detailYear').textContent = p.year;
+  document.getElementById('detailDur').textContent = p.dur;
+  document.getElementById('detailClient').textContent = p.client;
+  document.getElementById('detailRole').textContent = p.role;
+
+  // Related projects (3 random others)
+  const others = projects.filter(x => x.id !== id).sort(() => Math.random() - 0.5).slice(0, 3);
+  const rg = document.getElementById('relatedGrid');
+  rg.innerHTML = '';
+  others.forEach(o => {
+    const d = document.createElement('div');
+    d.className = 'rel';
+    d.onclick = () => showDetail(o.id);
+    d.innerHTML = `<img src="${o.img}" alt="${o.title}" loading="lazy"><span>${o.title}</span>`;
+    rg.appendChild(d);
+  });
+
+  document.getElementById('listView').style.display = 'none';
+  document.getElementById('detailView').style.display = 'block';
+  window.scrollTo({ top: 0 });
+}
+
+function showList() {
+  document.getElementById('listView').style.display = 'block';
+  document.getElementById('detailView').style.display = 'none';
+  window.scrollTo({ top: 0 });
+}
+</script>
+
+</body>
+</html>

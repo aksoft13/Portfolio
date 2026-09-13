@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio Design Mockups - 20 Concepts</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a0a; color: #ededed; font-family: -apple-system, 'Helvetica Neue', sans-serif; }
+  .hub { max-width: 1200px; margin: 0 auto; padding: 60px 24px; }
+  .hub h1 { font-size: 32px; margin-bottom: 8px; }
+  .hub p { color: #888; margin-bottom: 48px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+  .card { background: #141414; border: 1px solid #2a2a2a; border-radius: 12px; overflow: hidden; transition: transform .2s, border-color .2s; }
+  .card:hover { transform: translateY(-4px); border-color: #555; }
+  .card a { text-decoration: none; color: inherit; }
+  .card-thumb { height: 180px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #888; }
+  .card-body { padding: 16px; }
+  .card-body h3 { font-size: 16px; margin-bottom: 4px; }
+  .card-body span { font-size: 13px; color: #888; }
+  .tag { display: inline-block; background: #2a2a2a; padding: 2px 8px; border-radius: 4px; font-size: 11px; color: #aaa; margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="hub">
+  <h1>Video Portfolio - 20 Design Concepts</h1>
+  <p>Click each card to view the full-page mockup</p>
+  <div class="grid" id="grid"></div>
+</div>
+<script>
+const designs = [
+  { id: 1, name: "Cinematic Dark", desc: "Full-screen hero video, dark minimal", tag: "Minimal" },
+  { id: 2, name: "Masonry Grid", desc: "Pinterest-style staggered layout", tag: "Grid" },
+  { id: 3, name: "Split Screen", desc: "Left info / right video vertical split", tag: "Layout" },
+  { id: 4, name: "Horizontal Scroll", desc: "Sideways scrolling film strip", tag: "Creative" },
+  { id: 5, name: "Brutalist Mono", desc: "Raw typography, monospace, bold", tag: "Brutalist" },
+  { id: 6, name: "Gradient Glow", desc: "Neon gradients, glassmorphism cards", tag: "Modern" },
+  { id: 7, name: "Editorial Magazine", desc: "Magazine-style editorial layout", tag: "Editorial" },
+  { id: 8, name: "Vertical Timeline", desc: "Chronological project timeline", tag: "Timeline" },
+  { id: 9, name: "Bento Grid", desc: "Bento box asymmetric grid", tag: "Bento" },
+  { id: 10, name: "Immersive Fullscreen", desc: "One project at a time, full viewport", tag: "Immersive" },
+  { id: 11, name: "Sidebar Navigation", desc: "Fixed sidebar with scrolling content", tag: "Layout" },
+  { id: 12, name: "Card Stack", desc: "Overlapping stacked cards", tag: "Creative" },
+  { id: 13, name: "Minimal White", desc: "Clean white theme with accents", tag: "Minimal" },
+  { id: 14, name: "Retro VHS", desc: "VHS/analog aesthetic, scan lines", tag: "Retro" },
+  { id: 15, name: "3D Perspective", desc: "CSS perspective tilt cards", tag: "3D" },
+  { id: 16, name: "Showcase Carousel", desc: "Large featured carousel slider", tag: "Carousel" },
+  { id: 17, name: "Asymmetric Overlap", desc: "Overlapping sections, broken grid", tag: "Creative" },
+  { id: 18, name: "Terminal/Hacker", desc: "Terminal-style green-on-black", tag: "Theme" },
+  { id: 19, name: "Luxury Serif", desc: "High-end serif typography, gold accents", tag: "Luxury" },
+  { id: 20, name: "Motion Focus", desc: "Animated transitions, scroll effects", tag: "Motion" },
+];
+const grid = document.getElementById('grid');
+const colors = ['#1a1a2e','#16213e','#1a0a2e','#0a1a1a','#1e1e1e','#0d1117','#1a0a0a','#0a1a0a','#1a1a0a','#0a0a1a'];
+designs.forEach(d => {
+  const c = colors[(d.id - 1) % colors.length];
+  grid.innerHTML += `<div class="card"><a href="design-${d.id}.html">
+    <div class="card-thumb" style="background:${c}">Design #${d.id}</div>
+    <div class="card-body"><h3>${d.name}</h3><span>${d.desc}</span><br><span class="tag">${d.tag}</span></div>
+  </a></div>`;
+});
+</script>
+</body>
+</html>
