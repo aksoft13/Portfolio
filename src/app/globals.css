@@ -43,6 +43,9 @@ body {
   position: relative;
   padding-top: 56.25%;
 }
+.video-wrapper.video-portrait {
+  padding-top: 177.78%;
+}
 .video-wrapper > * {
   position: absolute;
   top: 0;

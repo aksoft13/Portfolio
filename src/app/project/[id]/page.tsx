@@ -35,6 +35,7 @@ export default async function ProjectPage({
             videoUrl={project.videoUrl}
             videoType={project.videoType}
             videoFile={project.videoFile}
+            layout={project.videoLayout ?? "stack"}
           />
         </div>
       ) : project.thumbnail ? (

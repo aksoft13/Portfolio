@@ -21,6 +21,7 @@ interface Project {
   videoType: string | null;
   videoFile: string | null;
   videos: VideoItem[];
+  videoLayout: string;
   images: string[];
   order: number;
   featured: boolean;
@@ -37,6 +38,7 @@ const emptyForm = {
   videoType: "youtube",
   videoFile: "",
   videos: [] as VideoItem[],
+  videoLayout: "stack",
   images: [] as string[],
   order: "0",
   featured: false,
@@ -202,6 +204,7 @@ export default function AdminPage() {
       videoType: project.videoType || "youtube",
       videoFile: project.videoFile || "",
       videos: project.videos || [],
+      videoLayout: project.videoLayout || "stack",
       images: project.images,
       order: project.order.toString(),
       featured: project.featured,
@@ -479,6 +482,21 @@ export default function AdminPage() {
                 >
                   + 영상 추가
                 </button>
+                {form.videos.length >= 2 && (
+                  <div className="mt-3">
+                    <label className={labelClass}>영상 레이아웃</label>
+                    <select
+                      value={form.videoLayout}
+                      onChange={(e) =>
+                        setForm({ ...form, videoLayout: e.target.value })
+                      }
+                      className="w-full px-4 py-2.5 bg-card-bg border border-border rounded-lg text-foreground focus:outline-none focus:border-foreground/50 transition-colors"
+                    >
+                      <option value="stack">세로 정렬 (1열)</option>
+                      <option value="side">좌우 정렬 (2열)</option>
+                    </select>
+                  </div>
+                )}
               </div>
 
               {/* Images */}
