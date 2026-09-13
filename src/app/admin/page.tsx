@@ -205,27 +205,46 @@ export default function AdminPage() {
     if (res.ok) fetchProjects();
   };
 
-  const handleSwapOrder = async (indexA: number, indexB: number) => {
-    const a = projects[indexA];
-    const b = projects[indexB];
-    if (!a || !b) return;
+  const [dragIndex, setDragIndex] = useState<number | null>(null);
+  const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
 
-    const orderA = indexA;
-    const orderB = indexB;
+  const handleDragStart = (index: number) => {
+    setDragIndex(index);
+  };
 
-    await Promise.all([
-      fetch(`/api/projects/${a.id}`, {
+  const handleDragOver = (e: React.DragEvent, index: number) => {
+    e.preventDefault();
+    setDragOverIndex(index);
+  };
+
+  const handleDrop = async (dropIndex: number) => {
+    if (dragIndex === null || dragIndex === dropIndex) {
+      setDragIndex(null);
+      setDragOverIndex(null);
+      return;
+    }
+
+    const reordered = [...projects];
+    const [moved] = reordered.splice(dragIndex, 1);
+    reordered.splice(dropIndex, 0, moved);
+
+    setDragIndex(null);
+    setDragOverIndex(null);
+
+    const updates = reordered.map((p, i) =>
+      fetch(`/api/projects/${p.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...a, order: orderB }),
-      }),
-      fetch(`/api/projects/${b.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...b, order: orderA }),
-      }),
-    ]);
+        body: JSON.stringify({ ...p, order: i }),
+      })
+    );
+    await Promise.all(updates);
     fetchProjects();
+  };
+
+  const handleDragEnd = () => {
+    setDragIndex(null);
+    setDragOverIndex(null);
   };
 
   const removeImage = (index: number) => {
@@ -557,34 +576,28 @@ export default function AdminPage() {
             <h2 className="text-xl font-semibold mb-6">
               등록된 프로젝트 ({projects.length})
             </h2>
-            <div className="space-y-3">
+            <div className="space-y-1">
               {projects.map((project, index) => (
                 <div
                   key={project.id}
-                  className="flex items-center justify-between p-4 bg-card-bg rounded-lg border border-border"
+                  draggable
+                  onDragStart={() => handleDragStart(index)}
+                  onDragOver={(e) => handleDragOver(e, index)}
+                  onDrop={() => handleDrop(index)}
+                  onDragEnd={handleDragEnd}
+                  className={`flex items-center justify-between p-4 bg-card-bg rounded-lg border transition-all ${
+                    dragIndex === index
+                      ? "opacity-40 border-border"
+                      : dragOverIndex === index
+                        ? "border-foreground/50 ring-1 ring-foreground/20"
+                        : "border-border"
+                  }`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className="flex flex-col gap-0.5 shrink-0">
-                      <button
-                        onClick={() => handleSwapOrder(index, index - 1)}
-                        disabled={index === 0}
-                        className="p-0.5 text-muted hover:text-foreground disabled:opacity-20 disabled:cursor-not-allowed transition-colors"
-                        title="위로"
-                      >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
-                        </svg>
-                      </button>
-                      <button
-                        onClick={() => handleSwapOrder(index, index + 1)}
-                        disabled={index === projects.length - 1}
-                        className="p-0.5 text-muted hover:text-foreground disabled:opacity-20 disabled:cursor-not-allowed transition-colors"
-                        title="아래로"
-                      >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </button>
+                    <div className="shrink-0 cursor-grab active:cursor-grabbing text-muted hover:text-foreground transition-colors">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 6h.01M8 12h.01M8 18h.01M16 6h.01M16 12h.01M16 18h.01" />
+                      </svg>
                     </div>
                     <div className="min-w-0">
                       <p className="font-medium truncate">{project.title}</p>
