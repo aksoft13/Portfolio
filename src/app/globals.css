@@ -53,3 +53,15 @@ body {
   width: 100% !important;
   height: 100% !important;
 }
+
+/* Drive 임베드: 900px로 렌더 후 컨테이너에 맞춰 축소 (좁은 폭 크롭 방지) */
+.video-wrapper.drive-embed {
+  overflow: hidden;
+}
+.video-wrapper.drive-embed > iframe {
+  width: var(--embed-w) !important;
+  height: var(--embed-h) !important;
+  transform: scale(var(--embed-scale));
+  transform-origin: top left;
+  border: none;
+}

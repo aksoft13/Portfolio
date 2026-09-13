@@ -29,14 +29,14 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <header className="fixed top-0 left-0 right-0 z-50 h-[60px] flex items-center justify-between px-10 bg-background/85 backdrop-blur-xl border-b border-white/[0.06]">
+        <header className="fixed top-0 left-0 right-0 z-50 h-[60px] flex items-center justify-between px-5 sm:px-10 bg-background/85 backdrop-blur-xl border-b border-white/[0.06]">
           <Link
             href="/"
-            className="text-[17px] font-semibold tracking-wide hover:text-accent transition-colors"
+            className="text-[15px] sm:text-[17px] font-semibold tracking-wide whitespace-nowrap hover:text-accent transition-colors"
           >
             Sunghoon LEE
           </Link>
-          <div className="flex items-center gap-7">
+          <div className="flex items-center gap-3.5 sm:gap-7">
             <Link
               href="/"
               className="text-[13px] text-muted hover:text-foreground transition-colors"

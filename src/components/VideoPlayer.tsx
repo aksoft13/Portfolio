@@ -1,8 +1,13 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
+
+/* Drive 미리보기 플레이어는 iframe이 좁으면 영상을 잘라서 렌더링한다.
+   (900px 정상 / 720px 이하 크롭) 항상 900px로 그린 뒤 컨테이너 폭에 맞춰 축소한다. */
+const DRIVE_MIN_WIDTH = 900;
 
 interface VideoItem {
   type: string;
@@ -17,6 +22,53 @@ interface VideoPlayerProps {
   layout?: string;
 }
 
+function GoogleDriveEmbed({
+  fileId,
+  wrapperClass,
+  ratio,
+}: {
+  fileId: string;
+  wrapperClass: string;
+  ratio: number;
+}) {
+  const boxRef = useRef<HTMLDivElement>(null);
+  const [box, setBox] = useState<{ w: number; scale: number } | null>(null);
+
+  useEffect(() => {
+    const el = boxRef.current;
+    if (!el) return;
+    const update = () => {
+      const cw = el.clientWidth;
+      if (!cw) return;
+      const w = Math.max(DRIVE_MIN_WIDTH, cw);
+      setBox({ w, scale: cw / w });
+    };
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={boxRef} className={`${wrapperClass} drive-embed`}>
+      {box && (
+        <iframe
+          src={`https://drive.google.com/file/d/${fileId}/preview`}
+          allow="autoplay"
+          allowFullScreen
+          style={
+            {
+              "--embed-w": `${box.w}px`,
+              "--embed-h": `${box.w * ratio}px`,
+              "--embed-scale": box.scale,
+            } as CSSProperties
+          }
+        />
+      )}
+    </div>
+  );
+}
+
 function SingleVideo({ type, url, portrait }: { type: string; url: string; portrait?: boolean }) {
   const wrapperClass = `video-wrapper${portrait ? " video-portrait" : ""}`;
 
@@ -25,16 +77,11 @@ function SingleVideo({ type, url, portrait }: { type: string; url: string; portr
     const fileId = match ? match[1] : null;
     if (!fileId) return null;
     return (
-      <div className={wrapperClass}>
-        <iframe
-          src={`https://drive.google.com/file/d/${fileId}/preview`}
-          width="100%"
-          height="100%"
-          allow="autoplay"
-          allowFullScreen
-          style={{ border: "none" }}
-        />
-      </div>
+      <GoogleDriveEmbed
+        fileId={fileId}
+        wrapperClass={wrapperClass}
+        ratio={portrait ? 16 / 9 : 9 / 16}
+      />
     );
   }
 
