@@ -46,6 +46,8 @@ export default function AdminPage() {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [uploading, setUploading] = useState(false);
   const [tab, setTab] = useState<"projects" | "resume" | "resume-import">("projects");
+  const [dragIndex, setDragIndex] = useState<number | null>(null);
+  const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
 
   // Check auth on mount
   useEffect(() => {
@@ -204,9 +206,6 @@ export default function AdminPage() {
     const res = await fetch(`/api/projects/${id}`, { method: "DELETE" });
     if (res.ok) fetchProjects();
   };
-
-  const [dragIndex, setDragIndex] = useState<number | null>(null);
-  const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
 
   const handleDragStart = (index: number) => {
     setDragIndex(index);

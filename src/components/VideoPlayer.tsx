@@ -41,7 +41,7 @@ export default function VideoPlayer({
 
   return (
     <div className="video-wrapper">
-      <ReactPlayer url={source} controls width="100%" height="100%" />
+      <ReactPlayer src={source} controls width="100%" height="100%" />
     </div>
   );
 }
