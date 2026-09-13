@@ -76,6 +76,14 @@ export default async function ProjectPage({
             </div>
             <div className="text-sm text-[#ccc]">{project.year}</div>
           </div>
+          {project.location && (
+            <div>
+              <div className="text-[11px] uppercase tracking-[2px] text-[#555] mb-1">
+                Location
+              </div>
+              <div className="text-sm text-[#ccc]">{project.location}</div>
+            </div>
+          )}
         </div>
       </div>
 

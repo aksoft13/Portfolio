@@ -210,16 +210,19 @@ export default function AdminPage() {
     const b = projects[indexB];
     if (!a || !b) return;
 
+    const orderA = indexA;
+    const orderB = indexB;
+
     await Promise.all([
       fetch(`/api/projects/${a.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...a, order: b.order }),
+        body: JSON.stringify({ ...a, order: orderB }),
       }),
       fetch(`/api/projects/${b.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...b, order: a.order }),
+        body: JSON.stringify({ ...b, order: orderA }),
       }),
     ]);
     fetchProjects();
