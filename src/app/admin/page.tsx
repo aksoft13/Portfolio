@@ -795,7 +795,8 @@ function ResumeImport() {
     for (let p = 1; p <= pdf.numPages; p++) {
       const page = await pdf.getPage(p);
       const content = await page.getTextContent();
-      const text = content.items.map((item: { str?: string }) => item.str || "").join("\n");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const text = content.items.map((item: any) => item.str || "").join("\n");
       pages.push(text);
     }
 
